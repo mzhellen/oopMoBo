@@ -16,11 +16,11 @@ public class UserMapper {
     }
 
     //Converter de User para UserCreateDTO
-    public static UserResponseDTO toRespondeDTO(User user) {
-        UserResponseDTO userResponse = new UserResponseDTO(
+    public static UserResponseDTO toDTO(User user) {
+        UserResponseDTO userResponseDTO = new UserResponseDTO(
                 user.getId(),
                 user.getNome(),
                 user.getEmail());
-        return userResponse;
+        return userResponseDTO;
     }
 }
