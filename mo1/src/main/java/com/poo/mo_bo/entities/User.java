@@ -2,8 +2,6 @@ package com.poo.mo_bo.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -13,16 +11,14 @@ public class User {
     private String nome;
     private String email;
     private String senha;
-    private Date aniv;
 
     public User(){}
 
-    public User(Long id, String nome, String email, String senha, Date aniv) {
+    public User(Long id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.aniv = aniv;
     }
 
     public Long getId() {
@@ -53,12 +49,5 @@ public class User {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public Date getAniv() {
-        return aniv;
-    }
-    public void setAniv(Date aniv) {
-        this.aniv = aniv;
     }
 }
