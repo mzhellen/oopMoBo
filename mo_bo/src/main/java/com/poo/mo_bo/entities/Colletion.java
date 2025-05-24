@@ -1,35 +1,60 @@
 package com.poo.mo_bo.entities;
 
 import com.poo.mo_bo.enums.Tipo;
+import jakarta.persistence.*;
+
 import java.util.Date;
 
-public class Conteudo {
-    //atributos
+@Entity
+@Table(name = "colletions")
+public class Colletion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String genero;
-    private String autor;
     private String descricao;
     private Date ano_lancamento;
     private Boolean favorito;
-    private String resenha;
     private Tipo tipo;
     private int ranking;
+    private String resenha;
 
-    public Conteudo(){}
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
 
-    public Conteudo(String nome, String genero, String autor, String descricao, Date ano_lancamento, Boolean favorito, String resenha, Tipo tipo, int ranking){
+    public Colletion(){}
+
+    public Colletion(Long id, String nome, String genero, String descricao, Date ano_lancamento, Boolean favorito, Tipo tipo, int ranking, String resenha, User user){
+        this.id = id;
         this.nome = nome;
         this.genero = genero;
-        this.autor = autor;
         this.descricao = descricao;
         this.ano_lancamento = ano_lancamento;
         this.favorito = favorito;
-        this.resenha = resenha;
         this.tipo = tipo;
         this.ranking = ranking;
+        this.resenha = resenha;
+        this.user = user;
     }
 
-    // assinatura dos métodos
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getResenha() {
+        return resenha;
+    }
+
+    public void setResenha(String resenha) {
+        this.resenha = resenha;
+    }
 
     public int getRanking() {
         return ranking;
@@ -45,14 +70,6 @@ public class Conteudo {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
-    }
-
-    public String getResenha() {
-        return resenha;
-    }
-
-    public void setResenha(String resenha) {
-        this.resenha = resenha;
     }
 
     public Boolean getFavorito() {
@@ -79,14 +96,6 @@ public class Conteudo {
         this.descricao = descricao;
     }
 
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
     public String getGenero() {
         return genero;
     }
@@ -101,5 +110,13 @@ public class Conteudo {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

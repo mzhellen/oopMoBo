@@ -58,6 +58,7 @@ public class User {
     public Date getAniv() {
         return aniv;
     }
+
     public void setAniv(Date aniv) {
         this.aniv = aniv;
     }
