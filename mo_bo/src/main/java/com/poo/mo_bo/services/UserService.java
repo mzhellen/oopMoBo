@@ -14,37 +14,49 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // método para criação do user
+    // metodo para criação do user
     public UserResponseDTO create(UserCreateDTO userCreateDTO){
         User user = UserMapper.toEntity(userCreateDTO);
         User userResponse = userRepository.save(user);
         return UserMapper.toDTO(userResponse);
     }
 
-    // método para acessar o user
+    // metodo para acessar o user
     public UserResponseDTO show (long id){
         User user = userRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado")
+                () -> new RuntimeException("Usuário não encontrado.")
         );
         return UserMapper.toDTO(user);
     }
 
-    // método para atualizar o user
-    public UserResponseDTO update(UserUpdateDTO userUpdateDTO){
-        User user = userRepository.findById(userUpdateDTO.id()).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado")
-        );
-        user.setNome(userUpdateDTO.nome());
-        user.setEmail(userUpdateDTO.email());
-        user.setSenha(userUpdateDTO.senha());
 
-        return UserMapper.toDTO(userRepository.save(user));
+
+    //metodo para atualizar o user
+    public UserResponseDTO update(Long id_user, UserUpdateDTO dto) {
+        User user = userRepository.findById(id_user)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+
+        if (dto.nome() != null) {
+            user.setNome(dto.nome());
+        }
+        if (dto.email() != null) {
+            user.setEmail(dto.email());
+        }
+        if (dto.senha() != null) {
+            user.setSenha(dto.senha());
+        }
+        if (dto.aniv() != null) {
+            user.setAniv(dto.aniv());
+        }
+
+        User updatedUser = userRepository.save(user);
+        return UserMapper.toDTO(updatedUser);
     }
 
-    // método para deletar o user
+    // metodo para deletar o user
     public void delete(long id){
         User user = userRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado")
+                () -> new RuntimeException("Usuário não encontrado.")
         );
         userRepository.delete(user);
     }

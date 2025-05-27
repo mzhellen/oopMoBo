@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
+@Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name = "colletions")
 public class Colletion {

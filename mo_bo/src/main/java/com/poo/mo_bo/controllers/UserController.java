@@ -33,21 +33,23 @@ public class UserController {
     }
 
     // atualizar user
-    @PatchMapping
-    public ResponseEntity<Object> update(@RequestBody UserUpdateDTO userUpdateDTO){
+    @PatchMapping("/{id_user}")//adicionei o "("/{id_user}")"
+    public ResponseEntity<Object> update(@PathVariable Long id_user, //linha adicionada
+                                         @RequestBody UserUpdateDTO userUpdateDTO){
+        System.out.println("ID recebido: " + id_user);
         try {
-            return new ResponseEntity<>(userService.update(userUpdateDTO), HttpStatus.OK);
+            return new ResponseEntity<>(userService.update(id_user, userUpdateDTO), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
     // deletar user pelo id
-    @PatchMapping("/{id_user}")
+    @DeleteMapping("/{id_user}") // alterei para @DeleteMapping
     public ResponseEntity<String> delete(@PathVariable long id_user){
         try {
             userService.delete(id_user);
-            return new ResponseEntity<>("Usuário deletado com sucesso", HttpStatus.OK);
+            return new ResponseEntity<>("Usuário deletado com sucesso.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
