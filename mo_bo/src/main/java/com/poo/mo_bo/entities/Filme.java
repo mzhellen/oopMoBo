@@ -2,9 +2,9 @@ package com.poo.mo_bo.entities;
 
 import jakarta.persistence.*;
 
-@Table(name = "filmes")
 @Entity
-public class Filme extends Colletion {
+@Table(name = "filmes")
+public class Filme extends Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

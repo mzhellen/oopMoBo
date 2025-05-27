@@ -8,7 +8,7 @@ import java.util.Date;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name = "colletions")
-public class Colletion {
+public class Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,9 +25,9 @@ public class Colletion {
     @JoinColumn(name = "user_id")
     User user;
 
-    public Colletion(){}
+    public Collection(){}
 
-    public Colletion(Long id, String nome, String genero, String descricao, Date ano_lancamento, Boolean favorito, Tipo tipo, int ranking, String resenha, User user){
+    public Collection(Long id, String nome, String genero, String descricao, Date ano_lancamento, Boolean favorito, Tipo tipo, int ranking, String resenha, User user){
         this.id = id;
         this.nome = nome;
         this.genero = genero;

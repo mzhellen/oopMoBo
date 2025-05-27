@@ -29,12 +29,11 @@ public class UserService {
         return UserMapper.toDTO(user);
     }
 
-
-
     //metodo para atualizar o user
     public UserResponseDTO update(Long id_user, UserUpdateDTO dto) {
         User user = userRepository.findById(id_user)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
+
 
         if (dto.nome() != null) {
             user.setNome(dto.nome());
@@ -61,3 +60,4 @@ public class UserService {
         userRepository.delete(user);
     }
 }
+
