@@ -111,8 +111,8 @@
 				<version>11.4.0</version>
 				<configuration>
 					<url>jdbc:mysql://localhost:3306/poo</url>
-					<user>cutehugs</user>
-					<password>senha</password>
+					<user>root</user>
+					<password>root</password>
 				</configuration>
 			</plugin>
 		</plugins>
