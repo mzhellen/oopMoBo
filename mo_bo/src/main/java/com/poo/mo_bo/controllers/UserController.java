@@ -33,10 +33,8 @@ public class UserController {
     }
 
     // atualizar user
-    @PatchMapping("/{id_user}")//adicionei o "("/{id_user}")"
-    public ResponseEntity<Object> update(@PathVariable Long id_user, //linha adicionada
-                                         @RequestBody UserUpdateDTO userUpdateDTO){
-        System.out.println("ID recebido: " + id_user);
+    @PatchMapping("/{id_user}")
+    public ResponseEntity<Object> update(@PathVariable Long id_user, @RequestBody UserUpdateDTO userUpdateDTO){
         try {
             return new ResponseEntity<>(userService.update(id_user, userUpdateDTO), HttpStatus.OK);
         } catch (Exception e) {
@@ -45,7 +43,7 @@ public class UserController {
     }
 
     // deletar user pelo id
-    @DeleteMapping("/{id_user}") // alterei para @DeleteMapping
+    @DeleteMapping("/{id_user}")
     public ResponseEntity<String> delete(@PathVariable long id_user){
         try {
             userService.delete(id_user);
