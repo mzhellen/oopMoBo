@@ -16,7 +16,7 @@ public class UserController {
     private UserService userService;
 
     // create user
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<UserResponseDTO> create(@RequestBody UserCreateDTO userCreateDTO){
         UserResponseDTO userResponseDTO = userService.create(userCreateDTO);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.CREATED);
@@ -33,12 +33,12 @@ public class UserController {
     }
 
     // atualizar user
-    @PatchMapping("/{id_user}")
-    public ResponseEntity<Object> update(@PathVariable Long id_user, @RequestBody UserUpdateDTO userUpdateDTO){
+    @PatchMapping
+    public ResponseEntity<UserResponseDTO> update(@RequestBody UserUpdateDTO userUpdateDTO){
         try {
-            return new ResponseEntity<>(userService.update(id_user, userUpdateDTO), HttpStatus.OK);
+            return new ResponseEntity<>(userService.update(userUpdateDTO), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

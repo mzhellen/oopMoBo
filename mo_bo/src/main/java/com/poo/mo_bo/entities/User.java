@@ -14,6 +14,7 @@ public class User {
     private String email;
     private String senha;
     private Date aniv;
+    private String hash;
 
     public User(){}
 
@@ -62,4 +63,7 @@ public class User {
     public void setAniv(Date aniv) {
         this.aniv = aniv;
     }
+
+    public String getHash() {return hash; }
+    public void setHash(String hash) { this.hash = hash; }
 }
