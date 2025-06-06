@@ -20,7 +20,7 @@ export function Register(){
     // função para criação de usuário em comunicação com o backend 
     async function createUser() {
       try{
-          const response = await api.post('/poo/users', form);
+          const response = await api.post('/poo/users/register', form);
           console.log('Usuário cadastrado com sucesso!', response.data);
       } catch (error){
           console.log('Erro ao cadastrar: ', error);
