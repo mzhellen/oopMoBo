@@ -13,7 +13,6 @@ import java.io.IOException;
 public class CustomAuthFilter extends OncePerRequestFilter {
 
     private final AuthService authService;
-
     public CustomAuthFilter(AuthService authService) {
         this.authService = authService;
     }

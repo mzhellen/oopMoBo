@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/poo/auth")
 @CrossOrigin(origins = "*")
 public class AuthController {
 
@@ -23,7 +23,6 @@ public class AuthController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
     @PostMapping("/logout")
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String hash) {
         try {
