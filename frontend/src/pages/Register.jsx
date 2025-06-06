@@ -23,9 +23,19 @@ export function Register() {
     }
   }
 
-  return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="flex flex-col items-center justify-center gap-5 bg-orange-300 p-8 rounded-xl">
+    // função para criação de usuário em comunicação com o backend 
+    async function createUser() {
+      try{
+          const response = await api.post('/poo/users/register', form);
+          console.log('Usuário cadastrado com sucesso!', response.data);
+      } catch (error){
+          console.log('Erro ao cadastrar: ', error);
+      }
+    }
+
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-5 bg-orange-300">
         <form>
           <div className="text-center p-5 text-orange-950"> 
             <h1 className="text-2xl font-bold">Criar Conta</h1>
