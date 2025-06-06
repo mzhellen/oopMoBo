@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function TelaSenha({ onVoltar, onEntrar }) {
+export default function TelaSenha() {
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4 bg-pink-100">
@@ -35,14 +37,14 @@ export default function TelaSenha({ onVoltar, onEntrar }) {
         </div>
 
         <button
-          onClick={onEntrar}  
+          onClick={() => alert("Entrar implementado futuramente!")}
           className="w-full py-2 mb-4 text-white transition bg-pink-500 rounded-md hover:bg-pink-600"
         >
           Entrar
         </button>
 
         <div className="flex justify-between text-sm text-pink-600">
-          <button onClick={onVoltar} className="underline">
+          <button onClick={() => navigate('/TelaLogin')} className="underline">
             Voltar
           </button>
           <a href="#" className="underline">

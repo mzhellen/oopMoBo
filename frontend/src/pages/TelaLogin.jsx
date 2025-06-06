@@ -1,4 +1,8 @@
-export default function TelaLogin({ onSeguir, voltar }) {
+import { useNavigate } from "react-router-dom";
+
+export default function TelaLogin() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex items-center justify-center min-h-screen px-4 bg-pink-100">
       <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-2xl">
@@ -15,7 +19,7 @@ export default function TelaLogin({ onSeguir, voltar }) {
         />
 
         <button
-          onClick={onSeguir}
+          onClick={() => navigate('/senha')}
           className="w-full py-2 text-white transition bg-pink-500 rounded-md hover:bg-pink-600"
         >
           Seguir
@@ -23,9 +27,12 @@ export default function TelaLogin({ onSeguir, voltar }) {
 
         <div className="mt-4 space-y-1 text-sm text-center text-gray-600">
           <p>
-            <a href="#" className="text-pink-500 hover:underline">
+            <button
+              onClick={() => navigate("/register")}
+              className="text-pink-500 hover:underline"
+            >
               Criar conta
-            </a>
+            </button>
           </p>
           <p>
             <a href="#" className="text-pink-500 hover:underline">
@@ -33,7 +40,7 @@ export default function TelaLogin({ onSeguir, voltar }) {
             </a>
           </p>
           <p>
-            <button onClick={voltar} className="mt-4 text-pink-400 underline">
+            <button onClick={() => navigate("/")} className="mt-4 text-pink-400 underline">
               Voltar
             </button>
           </p>
