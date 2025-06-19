@@ -24,7 +24,7 @@ public class UserController {
 
     // get user pelo id
     @GetMapping("/{id_user}")
-    public ResponseEntity<Object> show(@PathVariable long id_user){
+    public ResponseEntity<Object> show(@PathVariable Long id_user){
         try {
             return new ResponseEntity<>(userService.show(id_user), HttpStatus.OK);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class UserController {
 
     // deletar user pelo id
     @DeleteMapping("/{id_user}")
-    public ResponseEntity<String> delete(@PathVariable long id_user){
+    public ResponseEntity<String> delete(@PathVariable Long id_user){
         try {
             userService.delete(id_user);
             return new ResponseEntity<>("Usuário deletado com sucesso.", HttpStatus.OK);

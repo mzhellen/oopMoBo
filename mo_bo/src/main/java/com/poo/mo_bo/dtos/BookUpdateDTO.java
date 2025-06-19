@@ -2,11 +2,17 @@ package com.poo.mo_bo.dtos;
 
 import java.util.Date;
 
-public record LivroCreateDTO(
+public record BookUpdateDTO(
+        Long id,
         String nome,
         String genero,
-        String autor,
         String descricao,
         Date ano_lancamento,
+        Boolean favorito,
+        int ranking,
+        String resenha,
+        String imagURL,
+        Long user_id,
+        String autor,
         Integer quantidade_paginas) {
 }
