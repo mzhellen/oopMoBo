@@ -22,7 +22,7 @@ public class UserService {
     }
 
     // método para acessar o user
-    public UserResponseDTO show (long id){
+    public UserResponseDTO show (Long id){
         User user = userRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Usuário não encontrado")
         );
@@ -32,7 +32,7 @@ public class UserService {
     // método para atualizar o user
     public UserResponseDTO update(UserUpdateDTO userUpdateDTO){
         User user = userRepository.findById(userUpdateDTO.id()).orElseThrow(
-                () -> new RuntimeException("Usuário não encontrado")
+                () -> new RuntimeException("Usuário não encontrado para atualização de dados!")
         );
         user.setNome(userUpdateDTO.nome());
         user.setEmail(userUpdateDTO.email());
