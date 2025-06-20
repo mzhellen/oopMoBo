@@ -15,16 +15,17 @@ export function Register(){
     function haldleChange(e){
       const { name, value } = e.target;
       setForm((prev) => ({ ...prev, [name]: value}));
-    }
+    }   
 
     // função para criação de usuário em comunicação com o backend 
-    async function createUser() {
-      try{
-          const response = await api.post('/poo/users/register', form);
-          console.log('Usuário cadastrado com sucesso!', response.data);
-      } catch (error){
-          console.log('Erro ao cadastrar: ', error);
-      }
+    function createUser() {
+      api.post('/poo/users/register', form)
+      .then( function (response ) {
+        console.log('Usuário cadastrado com sucesso!', response.data)
+      })
+      .catch(function (error) {
+        console.error('Erro ao cadastrar: ', error)
+      })
     }
 
     return (
