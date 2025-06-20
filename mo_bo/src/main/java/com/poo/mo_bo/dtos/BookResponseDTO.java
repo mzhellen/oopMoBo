@@ -14,5 +14,7 @@ public record BookResponseDTO(
         String imagURL,
         Long user_id,
         String autor,
-        Integer quantidade_paginas) {
+        Integer quantidade_paginas,
+        Date data_inic,
+        Date data_final) {
 }
