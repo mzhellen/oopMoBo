@@ -53,7 +53,9 @@ public class BookService {
         book.setResenha(bookUpdateDTO.resenha());
         book.setImagURL(bookUpdateDTO.imagURL());
         book.setAutor(bookUpdateDTO.autor());
-        book.setQuantPag(bookUpdateDTO.quantidade_paginas());
+        book.setQuant_pag(bookUpdateDTO.quantidade_paginas());
+        book.setData_inic(bookUpdateDTO.data_inic());
+        book.setData_final(bookUpdateDTO.data_final());
         return BookMapper.toDTO(bookRepository.save(book));
     }
 
