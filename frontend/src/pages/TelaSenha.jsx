@@ -1,15 +1,21 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function TelaSenha({ onVoltar, onEntrar }) {
+export default function TelaSenha() {
   const [senha, setSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const navigate = useNavigate();
+
+  const handleEntrar = () => {
+    navigate('/inicial');
+  };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-pink-100">
-      <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-2xl">
-        <h2 className="mb-6 text-2xl font-bold text-center text-pink-600">Digite sua senha</h2>
+    <div className="flex items-center justify-center min-h-screen px-4 bg-[#4D2C1C]">
+      <div className="w-full max-w-sm p-8 bg-[#f5e8c7] shadow-lg rounded-2xl">
+        <h2 className="mb-6 text-2xl font-bold text-center text-[#4D2C1C]">Digite sua senha</h2>
 
-        <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="senha">
+        <label className="block mb-1 text-sm font-medium text-[#4D2C1C]" htmlFor="senha">
           Senha
         </label>
         <input
@@ -18,7 +24,7 @@ export default function TelaSenha({ onVoltar, onEntrar }) {
           value={senha}
           onChange={e => setSenha(e.target.value)}
           placeholder="Digite sua senha"
-          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="w-full px-4 py-2 mb-4 border border-[#b67c6a] rounded-md focus:outline-none focus:ring-2 focus:ring-[#aa926c]"
         />
 
         <div className="flex items-center mb-4">
@@ -29,20 +35,20 @@ export default function TelaSenha({ onVoltar, onEntrar }) {
             onChange={() => setMostrarSenha(!mostrarSenha)}
             className="mr-2"
           />
-          <label htmlFor="mostrarSenha" className="text-gray-700 cursor-pointer">
+          <label htmlFor="mostrarSenha" className="text-[#4D2C1C] cursor-pointer">
             Mostrar senha
           </label>
         </div>
 
         <button
-          onClick={onEntrar}  
-          className="w-full py-2 mb-4 text-white transition bg-pink-500 rounded-md hover:bg-pink-600"
+          onClick={handleEntrar}
+          className="w-full py-2 mb-4 text-white transition bg-[#b67c6a] rounded-md hover:bg-[#9e5f4d]"
         >
           Entrar
         </button>
 
-        <div className="flex justify-between text-sm text-pink-600">
-          <button onClick={onVoltar} className="underline">
+        <div className="flex justify-between text-sm text-[#4D2C1C]">
+          <button onClick={() => navigate('/login')} className="underline">
             Voltar
           </button>
           <a href="#" className="underline">

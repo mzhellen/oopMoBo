@@ -1,39 +1,46 @@
-export default function TelaLogin({ onSeguir, voltar }) {
-  return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-pink-100">
-      <div className="w-full max-w-sm p-8 bg-white shadow-lg rounded-2xl">
-        <h1 className="mb-6 text-3xl font-bold text-center text-pink-600">Mo-Bo</h1>
+import { useNavigate } from "react-router-dom";
 
-        <label className="block mb-1 text-sm font-medium text-gray-700" htmlFor="email">
+export default function TelaLogin() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex items-center justify-center min-h-screen px-4 bg-[#4D2C1C]">
+      <div className="w-full max-w-sm p-8 bg-[#f5e8c7] shadow-lg rounded-2xl">
+        <h1 className="mb-6 text-3xl font-bold text-center text-[#4D2C1C]">Mo-Bo</h1>
+
+        <label className="block mb-1 text-sm font-medium text-[#4D2C1C]" htmlFor="email">
           E-mail ou telefone
         </label>
         <input
           id="email"
           type="text"
           placeholder="Digite seu e-mail ou telefone"
-          className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-400"
+          className="w-full px-4 py-2 mb-4 border border-[#b67c6a] rounded-md focus:outline-none focus:ring-2 focus:ring-[#aa926c]"
         />
 
         <button
-          onClick={onSeguir}
-          className="w-full py-2 text-white transition bg-pink-500 rounded-md hover:bg-pink-600"
+          onClick={() => navigate('/senha')}
+          className="w-full py-2 text-white transition bg-[#b67c6a] rounded-md hover:bg-[#9e5f4d]"
         >
           Seguir
         </button>
 
-        <div className="mt-4 space-y-1 text-sm text-center text-gray-600">
+        <div className="mt-4 space-y-1 text-sm text-center text-[#4D2C1C]">
           <p>
-            <a href="#" className="text-pink-500 hover:underline">
+            <button
+              onClick={() => navigate("/register")}
+              className="text-[#b67c6a] hover:underline"
+            >
               Criar conta
-            </a>
+            </button>
           </p>
           <p>
-            <a href="#" className="text-pink-500 hover:underline">
+            <a href="#" className="text-[#b67c6a] hover:underline">
               Recuperar acesso
             </a>
           </p>
           <p>
-            <button onClick={voltar} className="mt-4 text-pink-400 underline">
+            <button onClick={() => navigate("/")} className="mt-4 text-[#aa926c] underline">
               Voltar
             </button>
           </p>
