@@ -25,14 +25,16 @@ public class CustomAuthFilter extends OncePerRequestFilter {
         String hash = request.getHeader("Authorization");
 
         String path = request.getRequestURI();
-        if (path.contains("/login") || path.contains("/register")) {
+        if (path.contains("/login") || path.contains("/register") || path.contains("/auth")){
+            //-->
+            System.out.println("\n\n\nIgnoring authentication for path: " + path);
             filterChain.doFilter(request, response);
             return;
         }
 
         if (hash == null || !authService.isValid(hash)) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("Acesso negado");
+            response.getWriter().write("Acesso negado.");
             return;
         }
 

@@ -1,5 +1,6 @@
 package com.poo.mo_bo.auth;
 
+import com.poo.mo_bo.dtos.UserCreateDTO;
 import com.poo.mo_bo.entities.User;
 import com.poo.mo_bo.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,27 @@ public class AuthService {
 
     public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public User register(UserCreateDTO registrationRequest) throws Exception {
+        Optional<User> existingUser = userRepository.findAll().stream()
+                .filter(user -> user.getEmail().equals(registrationRequest.email()))
+                .findFirst();
+
+        if (existingUser.isPresent()) {
+            throw new Exception("E-mail já cadastrado");
+        }
+
+        String encodedPassword = encoder.encode(registrationRequest.senha());
+
+        User newUser = new User();
+        newUser.setEmail(registrationRequest.email());
+        newUser.setSenha(encodedPassword);
+        newUser.setNome(registrationRequest.nome());
+        newUser.setAniv(registrationRequest.aniv());
+
+
+        return userRepository.save(newUser);
     }
 
     public String login(UserLoginDTO request) throws Exception {
