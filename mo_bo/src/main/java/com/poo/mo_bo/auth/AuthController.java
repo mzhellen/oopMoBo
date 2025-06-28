@@ -44,4 +44,13 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Erro ao cadastrar usuário: " + e.getMessage());
         }
     }
+
+    // --- NOVA FUNÇÃO DE TESTE ---
+    @GetMapping("/test-login") // Endpoint de teste
+    public ResponseEntity<String> testLoggedIn() {
+        // Se a requisição chegou até aqui, significa que o CustomAuthFilter
+        // permitiu, ou seja, o hash no Authorization header era válido.
+        return ResponseEntity.ok("Você está logado! Requisição autenticada com sucesso.");
+    }
+    // --- FIM DA NOVA FUNÇÃO ---
 }
