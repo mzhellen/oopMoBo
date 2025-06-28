@@ -18,11 +18,21 @@ export default function TelaLogin() {
           className="w-full px-4 py-2 mb-4 border border-[#b67c6a] rounded-md focus:outline-none focus:ring-2 focus:ring-[#aa926c]"
         />
 
+        <label className="block mb-1 text-sm font-medium text-[#4D2C1C]" htmlFor="senha">
+          Senha
+        </label>
+        <input
+          id="senha"
+          type="password"
+          placeholder="Digite sua senha"
+          className="w-full px-4 py-2 mb-4 border border-[#b67c6a] rounded-md focus:outline-none focus:ring-2 focus:ring-[#aa926c]"
+        />
+
         <button
-          onClick={() => navigate('/senha')}
+          onClick={() => navigate('/inicial')}
           className="w-full py-2 text-white transition bg-[#b67c6a] rounded-md hover:bg-[#9e5f4d]"
         >
-          Seguir
+          Entrar
         </button>
 
         <div className="mt-4 space-y-1 text-sm text-center text-[#4D2C1C]">
@@ -38,11 +48,6 @@ export default function TelaLogin() {
             <a href="#" className="text-[#b67c6a] hover:underline">
               Recuperar acesso
             </a>
-          </p>
-          <p>
-            <button onClick={() => navigate("/")} className="mt-4 text-[#aa926c] underline">
-              Voltar
-            </button>
           </p>
         </div>
       </div>

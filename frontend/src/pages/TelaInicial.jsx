@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navbar } from '../components/Navbar';
 
 export default function TelaInicial() {
-  const navigate = useNavigate();
-
   const [itens, setItens] = useState([
     {
       id: 1,
@@ -113,15 +111,7 @@ export default function TelaInicial() {
 
   return (
     <div className="min-h-screen bg-[#4D2C1C] text-black px-6 py-4 overflow-y-auto">
-      <header className="flex justify-between items-center mb-4">
-        <h1 className="text-3xl font-bold text-center w-full text-[#f5e8c7]">Minha Estante</h1>
-        <button
-          onClick={() => navigate('/usuario')}
-          className="absolute right-6 top-4 text-sm bg-[#f5e8c7] px-4 py-1 rounded-full hover:bg-[#e9d7b4]"
-        >
-          Usuário
-        </button>
-      </header>
+      <Navbar />
 
       <div className="flex flex-col gap-6">
         {itens.map((item) => (
@@ -150,7 +140,6 @@ export default function TelaInicial() {
           </div>
         ))}
 
-        {/* Blocos para adicionar novos */}
         <div className="grid grid-cols-2 gap-4">
           <div
             onClick={adicionarItem}
