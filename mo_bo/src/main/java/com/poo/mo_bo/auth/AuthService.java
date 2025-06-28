@@ -76,9 +76,14 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public boolean isValid(String hash) {
+    public Optional<User> findUserByHash(String hash) {
         return userRepository.findAll().stream()
-                .anyMatch(user -> hash.equals(user.getHash()));
+                .filter(user -> hash.equals(user.getHash()))
+                .findFirst();
+    }
+
+    public boolean isValid(String hash) {
+        return findUserByHash(hash).isPresent();
     }
 
     private String gerarMd5(String input) throws Exception {
