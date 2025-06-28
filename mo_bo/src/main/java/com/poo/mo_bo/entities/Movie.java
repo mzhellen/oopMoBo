@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "movies")
-@PrimaryKeyJoinColumn(name = "movieId")
+@PrimaryKeyJoinColumn(name = "movie_id")
 public class Movie extends Collection {
     private String diretor;
     private int duracao;

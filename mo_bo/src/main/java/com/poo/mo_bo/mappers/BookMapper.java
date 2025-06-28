@@ -20,7 +20,9 @@ public class BookMapper {
         book.setImagURL(bookCreateDTO.imagURL());
         book.setUser(user);
         book.setAutor(bookCreateDTO.autor());
-        book.setQuantPag(bookCreateDTO.quantidade_paginas());
+        book.setQuant_pag(bookCreateDTO.quantidade_paginas());
+        book.setData_inic(bookCreateDTO.data_inic());
+        book.setData_final(bookCreateDTO.data_final());
 
         return book;
     }
@@ -38,7 +40,9 @@ public class BookMapper {
                 book.getImagURL(),
                 book.getUser().getId(),
                 book.getAutor(),
-                book.getQuantPag()
+                book.getQuant_pag(),
+                book.getData_inic(),
+                book.getData_final()
         );
     }
 }
