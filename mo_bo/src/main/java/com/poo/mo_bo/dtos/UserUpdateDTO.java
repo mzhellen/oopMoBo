@@ -6,5 +6,6 @@ public record UserUpdateDTO(
         Long id,
         String nome,
         String email,
-        String senha,
+        String senhaAtual,
+        String novaSenha,
         Date aniv ){}
