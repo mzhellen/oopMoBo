@@ -9,7 +9,7 @@ const API_BASE_URL = 'http://localhost:8080/poo';
 const Login = () => {
     
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [password, setSenha] = useState('');
     const [message, setMessage] = useState(''); 
 
    
@@ -25,16 +25,11 @@ const Login = () => {
                 senha: password 
             });
 
-            // Se o login for bem-sucedido, o backend retorna o hash (token) no corpo da resposta
             const hash = response.data;
             console.log("Login bem-sucedido! Hash recebido:", hash);
 
-            // 1. Guardar o hash no localStorage (melhor prática para tokens JWT/hash)
-            // Lembre-se que o backend retorna o hash no CORPO da resposta, não no cabeçalho.
             localStorage.setItem('userHash', hash);
 
-            // 2. Opcional: Configurar o Axios para enviar o hash automaticamente em futuras requisições
-            // Isso é útil para requisições a rotas protegidas
             axios.defaults.headers.common['Authorization'] = `Bearer ${hash}`;
 
             setMessage('Login bem-sucedido!');
@@ -43,8 +38,6 @@ const Login = () => {
             console.error("Erro no login:", error);
             if (error.response) {
                 setMessage(`Erro: ${error.response.data}`);
-            } else if (error.request) {
-                setMessage('Erro: Nenhuma resposta do servidor. Tente novamente mais tarde.');
             } else {
                 setMessage('Erro inesperado. Tente novamente.');
             }
@@ -70,10 +63,10 @@ const Login = () => {
                 <div className="input-box">
                     <input
                         type="password"
-                        placeholder='password'
+                        placeholder='senha'
                         required
                         value={password} 
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => setSenha(e.target.value)}
                     />
                     <FaLock className='icon'/>
                 </div>
@@ -83,7 +76,7 @@ const Login = () => {
                 {message && <p className="message">{message}</p>} 
 
                 <div className="register-link">
-                    <p>Não tem uma conta?<a href="#">Registre-se!</a></p>
+                    <p>Não tem uma conta?<a href="/register"> Registre-se!</a></p>
                 </div>
             </form>
         </div>
