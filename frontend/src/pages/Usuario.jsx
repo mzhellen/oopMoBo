@@ -49,7 +49,6 @@ export default function Usuario() {
   const handleLogout = () => {
     localStorage.removeItem('userHash'); 
     delete axios.defaults.headers.common['Authorization']; 
-    alert('Logout realizado com sucesso!');
     navigate('/login'); 
   };
 
