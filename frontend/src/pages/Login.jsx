@@ -1,43 +1,49 @@
 import React, { useState } from 'react'; 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // <<< Importe useNavigate
 import { FaUser, FaLock } from "react-icons/fa";
 import './CSS/Login.css'
 
-
-const API_BASE_URL = 'http://localhost:8080/poo';
+const API = 'http://localhost:8080/poo';
 
 const Login = () => {
+    const navigate = useNavigate();
     
     const [email, setEmail] = useState('');
     const [password, setSenha] = useState('');
     const [message, setMessage] = useState(''); 
 
-   
     const handleSubmit = async (event) => {
         event.preventDefault(); 
-
         setMessage(''); 
 
         try {
-            
-            const response = await axios.post(`${API_BASE_URL}/auth/login`, {
+            const response = await axios.post(`${API}/auth/login`, {
                 email: email,
                 senha: password 
             });
 
             const hash = response.data;
-            console.log("Login bem-sucedido! Hash recebido:", hash);
+            console.log("Login.jsx: Login bem-sucedido! Hash recebido do backend:", hash);
 
             localStorage.setItem('userHash', hash);
+            console.log("Login.jsx: Valor de 'userHash' em localStorage APÓS setItem:", localStorage.getItem('userHash'));
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${hash}`;
-
-            setMessage('Login bem-sucedido!');
+            console.log("Login.jsx: Cabeçalho Authorization padrão do Axios configurado.");
+ 
+            navigate('/inicial');
 
         } catch (error) {
-            console.error("Erro no login:", error);
+            console.error("Login.jsx: Erro no login:", error);
             if (error.response) {
-                setMessage(`Erro: ${error.response.data}`);
+                if (error.response.status === 401 || error.response.status === 403) {
+                     setMessage('Credenciais inválidas. Verifique seu e-mail e senha.');
+                } else {
+                     setMessage(`Erro: ${error.response.data}`);
+                }
+            } else if (error.request) {
+                setMessage('Erro: Nenhuma resposta do servidor. Tente novamente mais tarde.');
             } else {
                 setMessage('Erro inesperado. Tente novamente.');
             }
