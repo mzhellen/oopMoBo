@@ -8,10 +8,10 @@ const API_BASE_URL = 'http://localhost:8080/poo';
 
 const Registrar = () => {
     
-    const [name, setName] = useState('');
+    const [name, setNome] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [birthday, setBirthday] = useState(''); 
+    const [password, setSenha] = useState('');
+    const [birthday, setAniv] = useState(''); 
     const [message, setMessage] = useState(''); 
 
     const handleSubmit = async (event) => {
