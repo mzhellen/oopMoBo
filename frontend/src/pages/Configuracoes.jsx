@@ -26,7 +26,7 @@ export default function Configuracoes() {
       const userHash = localStorage.getItem('userHash');
       if (!userHash) {
         alert('Você não está logado.');
-        navigate('/login');
+        navigate('/');
         return;
       }
 
@@ -43,7 +43,7 @@ export default function Configuracoes() {
           setError('Sessão inválida. Faça login novamente.');
           localStorage.removeItem('userHash');
           delete axios.defaults.headers.common['Authorization'];
-          navigate('/login');
+          navigate('/');
         } else {
           setError('Não foi possível carregar os dados do usuário.');
         }
@@ -61,7 +61,7 @@ export default function Configuracoes() {
     const userHash = localStorage.getItem('userHash');
     if (!userHash) {
       alert('Erro de autenticação. Por favor, faça login novamente.');
-      navigate('/login');
+      navigate('/');
       return;
     }
     axios.defaults.headers.common['Authorization'] = `Bearer ${userHash}`;

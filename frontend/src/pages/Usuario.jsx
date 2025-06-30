@@ -17,7 +17,7 @@ export default function Usuario() {
       
       if (!userHash) {
         alert('Você não está logado. Redirecionando para a página de login.');
-        navigate('/login');
+        navigate('/');
         return;
       }
 
@@ -33,7 +33,7 @@ export default function Usuario() {
           setError('Sessão inválida ou expirada. Faça login novamente.');
           localStorage.removeItem('userHash');
           delete axios.defaults.headers.common['Authorization']; 
-          navigate('/login');
+          navigate('/');
         } else {
           setError('Não foi possível carregar o perfil do usuário.');
         }
@@ -49,7 +49,7 @@ export default function Usuario() {
   const handleLogout = () => {
     localStorage.removeItem('userHash'); 
     delete axios.defaults.headers.common['Authorization']; 
-    navigate('/login'); 
+    navigate('/'); 
   };
 
   if (loading) {

@@ -98,7 +98,7 @@ const Registrar = () => {
                 {message && <p className="message">{message}</p>}
 
                 <div className="register-link">
-                    <p>Já tem uma conta?<a href="/login"> Faça Login!</a></p> 
+                    <p>Já tem uma conta?<a href="/"> Faça Login!</a></p> 
                 </div>
             </form>
         </div>
