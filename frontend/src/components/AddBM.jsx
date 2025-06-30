@@ -1,60 +1,53 @@
 import { useEffect, useState } from "react"
 import api from '../controllers/api';
 
-
-function AddF( {movie, user_id}){
+function AddBM( {user_id}){
     console.log("Aquiiiiiiiii o user id :)", user_id)
     const [telinha, setTelinha] = useState(false)
-    const [savemovie, setSaveMovie] = useState({
+    const [savebook, setSaveBook] = useState({
         
-        nome:`${movie.title}`,
+        nome:'',
         genero:'',
         descricao:'',
-        ano_lancamento:`${movie.release_date}`,
+        ano_lancamento:'',
         favorito: false,
         ranking: 0,
         resenha:'',
-        imagURL:`http://image.tmdb.org/t/p/original${movie.poster_path}`,
+        imagURL:'',
         user_id: `${user_id}`,
-        diretor: '',
-        duracao: 0,
-        data_assist: ''
+        autor: '',
+        quantidade_paginas: 0,
+        data_inic: '',
+        data_final: ''
 
     });
 
-    // funçõe pra salvar o filme no banco
-    async function saveMovie(event){
+    // funçõe pra salvar o livro no banco
+    async function saveBook(event){
 
         event.preventDefault();
-        console.log("SAVE MOVIE:", savemovie)
+        console.log("SAVE BOOK:", savebook)
 
-        await api.post('/poo/collections/create/movie',savemovie)
+        await api.post('/poo/collections/create/book',savebook)
         .then(function(response){
-            console.log('Filme adicionado com sucesso!', response.data);
+            console.log('Livro adicionado com sucesso!', response.data);
         }).catch(function(error){
-            console.log('Filme não foi adicionado!', error);
+            console.log('Livro não foi adicionado!', error);
         });    
     }
         
     function handleChange(e) {
     const { name, value } = e.target;
-    setSaveMovie((prev) => ({ ...prev, [name]: value }));
+    setSaveBook((prev) => ({ ...prev, [name]: value }));
     }
 
     return(
-            <div className="grid grid-cols-3 place-items-center gap-5 m-10 bg-[#f5e8c7] p-5 rounded-lg">
-                <div className="rounded-lg">
-                    <img src={`http://image.tmdb.org/t/p/original${movie.poster_path}`} alt={movie.title} className="w-96 h-60 rounded-md mb-4 md:mb-0 md:mr-6"/>
-                </div>
-                <div>
-                    <h1 className="font-bold">{movie.title}</h1>
-                    <p>{movie.overview}</p>
-                </div>
+            <div>
                 <div>
                     <button
                         type="button"
                         onClick={() => setTelinha(true)}
-                        className="bg-[#4D2C1C] text-[#f5e8c7] rounded-lg w-28 h-10 hover:bg-[#eece9d]  hover:text-[#4D2C1C] transition-colors "
+                        className="bg-[#4D2C1C] text-[#f5e8c7] rounded-lg w-28 h-10 hover:bg-[#eece9d]  hover:text-[#4D2C1C] transition-colors"
                         >Adicionar
                     </button>
                 </div>
@@ -63,13 +56,14 @@ function AddF( {movie, user_id}){
                             <div className="bg-white rounded-xl shadow-lg p-6 w-10/12 relative">
                                 <h2 className="text-lg font-bold mb-4">Preencha os dados</h2>
 
-                                <form onSubmit={saveMovie} className="flex flex-col gap-4">
+                                <form onSubmit={saveBook} className="flex flex-col gap-4">
                                 <div>
                                     <label className="pr-2">Título:</label>
                                     <input
                                         name="nome"
                                         type="text"
-                                        defaultValue={movie.title}
+                                        value={saveBook.nome}
+                                        onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
                                     />
                                 </div>
@@ -79,7 +73,7 @@ function AddF( {movie, user_id}){
                                     <input      
                                         name="genero"
                                         type="text"
-                                        value={saveMovie.genero}
+                                        value={saveBook.genero}
                                         onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
                                     />
@@ -89,7 +83,7 @@ function AddF( {movie, user_id}){
                                     <label className="pr-2">Descrição:</label>
                                     <textarea
                                         name="descricao"
-                                        value={saveMovie.descricao}
+                                        value={saveBook.descricao}
                                         onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2 h-28 w-80"
                                     ></textarea>
@@ -99,7 +93,8 @@ function AddF( {movie, user_id}){
                                     <input
                                         name="ano_lancamento"
                                         type="date"
-                                        defaultValue={movie.release_date}
+                                        value={saveBook.ano_lancamento}
+                                        onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
                                     />
                                 </div>
@@ -109,7 +104,7 @@ function AddF( {movie, user_id}){
                                     <input
                                         name="favorito"
                                         type="checkbox"
-                                        checked={saveMovie.favorito}
+                                        checked={saveBook.favorito}
                                         onChange={handleChange}
                                         className="ml-2"
                                     />
@@ -120,7 +115,7 @@ function AddF( {movie, user_id}){
                                     <input
                                         name="ranking"
                                         type="int"
-                                        value={saveMovie.ranking}
+                                        value={saveBook.ranking}
                                         onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
                                     />
@@ -130,7 +125,7 @@ function AddF( {movie, user_id}){
                                     <label className="pr-2">Resenha</label>
                                     <textarea
                                         name="resenha"
-                                        value={saveMovie.resenha}
+                                        value={saveBook.resenha}
                                         onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
                                     />
@@ -141,39 +136,51 @@ function AddF( {movie, user_id}){
                                     <input
                                         name="imagURL"
                                         type="text"
-                                        defaultValue={`http://image.tmdb.org/t/p/original${movie.poster_path}`}
+                                        value={saveBook.imagURL}
+                                        onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="pr-2">Diretor</label>
+                                    <label className="pr-2">Autor</label>
                                     <input
-                                    name="diretor"
+                                    name="autor"
                                     type="text"
-                                    value={saveMovie.diretor}
+                                    value={saveBook.autor}
                                     onChange={handleChange}
                                     className="border border-gray-300 rounded-md p-2"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="pr-2">Duração (min)</label>
+                                    <label className="pr-2">Quantidade de páginas</label>
                                     <input
-                                    name="duracao"
+                                    name="quantidade_paginas"
                                     type="int"
-                                    value={saveMovie.duracao}
+                                    value={saveBook.quantidade_paginas}
                                     onChange={handleChange}
                                     className="border border-gray-300 rounded-md p-2"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="pr-2">Data assistido</label>
+                                    <label className="pr-2">Início da leitura</label>
                                     <input
-                                    name="data_assist"
+                                    name="data_inic"
                                     type="date"
-                                    value={saveMovie.data_assist}
+                                    value={saveBook.data_inic}
+                                    onChange={handleChange}
+                                    className="border border-gray-300 rounded-md p-2"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="pr-2">Final da leitura</label>
+                                    <input
+                                    name="data_f"
+                                    type="date"
+                                    value={saveBook.data_final}
                                     onChange={handleChange}
                                     className="border border-gray-300 rounded-md p-2"
                                     />
@@ -201,4 +208,4 @@ function AddF( {movie, user_id}){
             </div>
     )
 }
-export default AddF
+export default AddBM

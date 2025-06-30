@@ -20,10 +20,16 @@ export function Navbar() {
           Interesses
         </button>
         <button
-          onClick={() => navigate('/adicionar')}
+          onClick={() => navigate('/addfilme')}
           className="hover:text-[#b67c6a] transition-colors"
         >
-          Adicionar
+          Adicionar Filme
+        </button>
+        <button
+          onClick={() => navigate('/addlivro')}
+          className="hover:text-[#b67c6a] transition-colors"
+        >
+          Adicionar Livro
         </button>
         <button
           onClick={() => navigate('/usuario')}

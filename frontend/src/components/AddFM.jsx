@@ -1,11 +1,9 @@
 import { useState } from "react"
 import api from '../controllers/api';
 
-// falta adicionar: algo pra pegar o id do usuario e o hash 
 
 function AddFM({user_id}) {
     const [telinha, setTelinha] = useState(false)
-    const [userid, setUserId] = useState(user_id)
     const [savemovie, setSaveMovie] = useState({
         
         nome:'',
@@ -16,7 +14,7 @@ function AddFM({user_id}) {
         ranking: 0,
         resenha:'',
         imagURL:'',
-        user_id: `${userid}`,
+        user_id: `${user_id}`,
         diretor: '',
         duracao: 0,
         data_assist: ''
@@ -42,11 +40,12 @@ function AddFM({user_id}) {
     }
 
     return(
-            <div className="grid grid-cols-3 place-items-center gap-5 m-10">
+            <div>
                 <div>
                     <button
                         type="button"
                         onClick={() => setTelinha(true)}
+                        className="bg-[#4D2C1C] text-[#f5e8c7] rounded-lg w-28 h-10 hover:bg-[#eece9d]  hover:text-[#4D2C1C] transition-colors"
                         >Adicionar
                     </button>
                 </div>
