@@ -27,7 +27,7 @@ export default function AddLivro(){
                 console.log('deu em nada', response.data);
             }else{
                 setBooks(response.data.items); 
-                setShowButton(true);
+                setShowButton(false);
                 console.log('deu certo', response.data.items);
             }
         });

@@ -37,8 +37,9 @@ function AddB( {book, user_id}){
     }
         
     function handleChange(e) {
-    const { name, value } = e.target;
-    setSaveBook((prev) => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+        const nvalue = type === 'checkbox' ? checked : value;
+        setSaveMovie((prev) => ({ ...prev, [name]: nvalue }));
     }
 
     return(

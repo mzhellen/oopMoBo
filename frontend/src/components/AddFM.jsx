@@ -25,6 +25,7 @@ function AddFM({user_id}) {
     async function saveMovie(event){
 
         event.preventDefault();
+        console.log("SAVE MOVIE:", savemovie)
 
         await api.post('/poo/collections/create/movie',savemovie)
         .then(function(response){
@@ -35,8 +36,9 @@ function AddFM({user_id}) {
     }
         
     function handleChange(e) {
-    const { name, value } = e.target;
-    setSaveMovie((prev) => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+        const nvalue = type === 'checkbox' ? checked : value;
+        setSaveMovie((prev) => ({ ...prev, [name]: nvalue }));
     }
 
     return(
@@ -101,10 +103,10 @@ function AddFM({user_id}) {
                                     <label className="pr-2">Favorito</label>
                                     <input
                                         name="favorito"
-                                        type="boolean"
+                                        type="checkbox"
                                         checked={saveMovie.favorito}
                                         onChange={handleChange}
-                                        className="border border-gray-300 rounded-md p-2"
+                                        className="ml-2"
                                     />
                                 </div>
 

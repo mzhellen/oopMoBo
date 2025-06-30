@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/poo/colletions")
+@RequestMapping("/poo/collections")
 public class CollectionController {
     @Autowired
     private MovieService movieService;
@@ -32,6 +32,7 @@ public class CollectionController {
     // função para adicionar um livro
     @PostMapping("/create/book")
     public ResponseEntity<BookResponseDTO> createBook(@RequestBody BookCreateDTO bookCreateDTO){
+        System.out.println("Chegou aqui :)"+bookCreateDTO);
         BookResponseDTO bookResponseDTO = bookService.create(bookCreateDTO);
         return new ResponseEntity<>(bookResponseDTO, HttpStatus.CREATED);
     }

@@ -2,10 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import TelaInicial from './pages/TelaInicial';
 import Usuario from './pages/Usuario';
 import Configuracoes from './pages/Configuracoes';
-
 import Login from './pages/Login';
 import Registrar from './pages/Registrar';
-
 import Interesses from './pages/Interesses';
 import AddFilme from './pages/AddFilme';
 import AddLivro from './pages/AddLivro';
@@ -14,7 +12,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login/>} />
+        <Route path="/" element={<Login/>} />
         <Route path="/register" element={<Registrar/>}/>
         <Route path="/inicial" element={<TelaInicial />} />
         <Route path="/usuario" element={<Usuario />} />
