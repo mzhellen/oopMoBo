@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Registrar from './pages/Registrar';
 
 import Interesses from './pages/Interesses';
+import AddFilme from './pages/AddFilme';
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="/interesses" element={<Interesses />} />
         <Route path="/estante" element={<TelaInicial />} />
         <Route path="/cadastrar" element={<TelaInicial />} />
+        <Route path="/addfilme" element={<AddFilme />} />
       </Routes>
     </BrowserRouter>
   );
