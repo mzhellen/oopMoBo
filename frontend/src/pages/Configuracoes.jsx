@@ -126,7 +126,7 @@ export default function Configuracoes() {
     <div className="min-h-screen bg-transparent text-[#f5e8c7] px-6 py-8">
       <h1 className="text-3xl font-bold text-center mb-8">Configurações</h1>
 
-      <div className="bg-[#f5e8c7] text-[#4D2C1C] rounded-2xl p-6 max-w-md mx-auto shadow-md flex flex-col gap-4">
+      <div className="bg-[#b67c6a] text-[#4D2C1C] rounded-2xl p-6 max-w-md mx-auto shadow-md flex flex-col gap-4">
         {message && <p className="success-message text-green-600 font-semibold">{message}</p>}
         {error && <p className="error-message text-red-600 font-semibold">{error}</p>}
 
@@ -234,7 +234,7 @@ export default function Configuracoes() {
 
         <button
           onClick={() => navigate('/usuario')}
-          className="mt-6 w-full bg-[#b67c6a] text-white py-2 rounded-full hover:bg-[#a46b5c]"
+          className="mt-6 w-full bg-[#4D2C1C] text-white py-2 rounded-full hover:bg-white  hover:text-[#4D2C1C]"
         >
           Voltar ao perfil
         </button>

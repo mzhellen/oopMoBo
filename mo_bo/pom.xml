@@ -90,8 +90,8 @@
 				<version>11.4.0</version>
 				<configuration>
 					<url>jdbc:mysql://localhost:3306/poo</url>
-					<user>root</user>
-					<password></password>
+					<user>cutehugs</user>
+					<password>senha</password>
 				</configuration>
 			</plugin>
 		</plugins>
