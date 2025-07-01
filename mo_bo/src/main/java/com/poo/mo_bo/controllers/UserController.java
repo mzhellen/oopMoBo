@@ -7,6 +7,8 @@ import com.poo.mo_bo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -33,12 +35,20 @@ public class UserController {
     }
 
     // atualizar user
-    @PatchMapping
-    public ResponseEntity<UserResponseDTO> update(@RequestBody UserUpdateDTO userUpdateDTO){
+    @PatchMapping("/update")
+    public ResponseEntity<Object> update(@RequestBody UserUpdateDTO userUpdateDTO){
         try {
-            return new ResponseEntity<>(userService.update(userUpdateDTO), HttpStatus.OK);
+            String loggedInUserEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            UserResponseDTO updatedProfile = userService.update(loggedInUserEmail, userUpdateDTO);
+            return new ResponseEntity<>(updatedProfile, HttpStatus.OK);
+
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (UsernameNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Erro interno ao atualizar perfil: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -50,6 +60,18 @@ public class UserController {
             return new ResponseEntity<>("Usuário deletado com sucesso.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserResponseDTO> getUserProfile() {
+        try {
+            UserResponseDTO userProfile = userService.getLoggedInUserProfile();
+            return ResponseEntity.ok(userProfile);
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

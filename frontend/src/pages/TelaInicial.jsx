@@ -1,36 +1,72 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
+import { Navbar } from '../components/Navbar';
+import api from '../controllers/api';
 
 export default function TelaInicial() {
-  const [itens, setItens] = useState([
-    { id: 1, tipo: "filme", capa: "https://link-da-imagem1.jpg" },
-    { id: 2, tipo: "livro", capa: "https://link-da-imagem2.jpg" },
-  ]);
+  const [itens, setItens] = useState([]);
+  
 
-  const adicionarItem = () => {
-    const novaCapa = prompt("Cole aqui o link da imagem da capa:");
-    if (novaCapa) {
-      setItens([...itens, { id: Date.now(), tipo: "livro", capa: novaCapa }]);
-    }
-  };
+  useEffect(() => {
+    const getCollections = async () => {
+      let userId = null;
+      // requição pra pegar o id que será usado como filtro
+      try{
+        const getId = await api.get('/poo/users/profile')
+        userId = getId.data.id;
+        console.log('Id encontrado', userId);
+      }catch(error){
+        console.log('Não pegou o id', error);
+        return;
+      }
+      
+      try {
+        const response = await api.get('/poo/collections'); 
+        const data = response.data; 
+        setItens(data); 
+        console.log('coleção resgatada', data);
+
+        // filtragem de dados
+        const filter = data.filter(item => {
+          return item.user.id === userId;
+        });
+        setItens(filter);
+        console.log('Coleção filtrada', filter);
+
+      } catch (error) {
+        console.error('Erro na hora de pegar sua coleção:', error);
+      }
+    };
+    
+    getCollections();
+  }, []);
 
   return (
-    <div className="min-h-screen p-6 bg-pink-50">
-      <h1 className="mb-6 text-3xl font-bold text-pink-600">Minha lista Mo-Bo</h1>
+    <div className="h-screen w-screen bg-[#4D2C1C] px-6 py-20 overflow-y-auto">
+      <Navbar />
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="flex flex-col gap-6 p-8">
         {itens.map((item) => (
-          <div key={item.id} className="overflow-hidden rounded-lg shadow-md">
-            <img src={item.capa} alt="Capa" className="object-cover w-full h-48" />
+          <div
+            key={item.id}
+            className={'flex flex-col md:flex-row items-center p-4 rounded-2xl shadow-md bg-[#f5e8c7]'}
+          >
+            {item.imagURL && (
+              <img
+                src={item.imagURL}
+                alt={item.titulo}
+                className="w-32 h-48 object-cover rounded-md mb-4 md:mb-0 md:mr-6"
+              />
+            )}
+            <div className='text-[#4D2C1C]'>
+              <h2 className="text-xl font-bold">{item.nome}</h2>
+              {item.descricao && <p className="mt-2 text-sm">{item.descricao}</p>}
+              <div className="mt-2 text-yellow-500 text-lg">
+                {'★'.repeat(item.ranking)}{'☆'.repeat(5 - item.ranking)}
+              </div>
+            </div>
           </div>
         ))}
       </div>
-
-      <button
-        onClick={adicionarItem}
-        className="px-4 py-2 mt-6 font-semibold text-white bg-pink-500 rounded hover:bg-pink-600"
-      >
-        + Adicionar item
-      </button>
     </div>
   );
 }

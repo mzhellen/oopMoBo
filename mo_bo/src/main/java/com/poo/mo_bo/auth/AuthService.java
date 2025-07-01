@@ -62,13 +62,19 @@ public class AuthService {
         return hash;
     }
 
-    public void logout(String hash) throws Exception {
+    public void logout(String authorizationHeader) throws Exception {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Cabeçalho de autorização inválido ou ausente.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
         Optional<User> optionalUser = userRepository.findAll().stream()
-                .filter(user -> hash.equals(user.getHash()))
+                .filter(user -> token.equals(user.getHash()))
                 .findFirst();
 
         if (optionalUser.isEmpty()) {
-            throw new Exception("Sessão não encontrada");
+            throw new Exception("Sessão não encontrada ou token inválido.");
         }
 
         User user = optionalUser.get();
@@ -76,9 +82,14 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public boolean isValid(String hash) {
+    public Optional<User> findUserByHash(String hash) {
         return userRepository.findAll().stream()
-                .anyMatch(user -> hash.equals(user.getHash()));
+                .filter(user -> hash.equals(user.getHash()))
+                .findFirst();
+    }
+
+    public boolean isValid(String hash) {
+        return findUserByHash(hash).isPresent();
     }
 
     private String gerarMd5(String input) throws Exception {
