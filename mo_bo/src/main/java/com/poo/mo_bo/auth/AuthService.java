@@ -62,13 +62,19 @@ public class AuthService {
         return hash;
     }
 
-    public void logout(String hash) throws Exception {
+    public void logout(String authorizationHeader) throws Exception {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            throw new IllegalArgumentException("Cabeçalho de autorização inválido ou ausente.");
+        }
+
+        String token = authorizationHeader.substring(7);
+
         Optional<User> optionalUser = userRepository.findAll().stream()
-                .filter(user -> hash.equals(user.getHash()))
+                .filter(user -> token.equals(user.getHash()))
                 .findFirst();
 
         if (optionalUser.isEmpty()) {
-            throw new Exception("Sessão não encontrada");
+            throw new Exception("Sessão não encontrada ou token inválido.");
         }
 
         User user = optionalUser.get();
