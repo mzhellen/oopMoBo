@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import api from '../controllers/api';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 function AddBM( {user_id}){
     console.log("Aquiiiiiiiii o user id :)", user_id)
@@ -31,15 +32,38 @@ function AddBM( {user_id}){
         await api.post('/poo/collections/create/book',savebook)
         .then(function(response){
             console.log('Livro adicionado com sucesso!', response.data);
+            toast.success('Livro adicionado com sucesso!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+            setTelinha(false);
         }).catch(function(error){
             console.log('Livro não foi adicionado!', error);
+            toast.error('Livro não foi adicionado, cancele e tente novamente!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
         });    
     }
         
     function handleChange(e) {
         const { name, value, type, checked } = e.target;
         const nvalue = type === 'checkbox' ? checked : value;
-        setSaveMovie((prev) => ({ ...prev, [name]: nvalue }));
+        setSaveBook((prev) => ({ ...prev, [name]: nvalue }));
     }
 
     return(
@@ -66,6 +90,7 @@ function AddBM( {user_id}){
                                         value={saveBook.nome}
                                         onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
+                                        required
                                     />
                                 </div>
 
@@ -206,6 +231,7 @@ function AddBM( {user_id}){
                             </div>
                             </div>
                         )}
+                    <ToastContainer />
             </div>
     )
 }

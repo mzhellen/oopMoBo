@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import api from '../controllers/api';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+
 
 
 function AddF( {movie, user_id}){
@@ -31,8 +33,31 @@ function AddF( {movie, user_id}){
         await api.post('/poo/collections/create/movie',savemovie)
         .then(function(response){
             console.log('Filme adicionado com sucesso!', response.data);
+            toast.success('Filme adicionado com sucesso!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+            setTelinha(false);
         }).catch(function(error){
             console.log('Filme não foi adicionado!', error);
+            toast.error('Filme não foi adicionado, cancele e tente novamente!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
         });    
     }
         
@@ -72,6 +97,7 @@ function AddF( {movie, user_id}){
                                         type="text"
                                         defaultValue={movie.title}
                                         className="border border-gray-300 rounded-md p-2"
+                                        required
                                     />
                                 </div>
 
@@ -199,6 +225,7 @@ function AddF( {movie, user_id}){
                             </div>
                             </div>
                         )}
+                 <ToastContainer />
             </div>
     )
 }

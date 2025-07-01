@@ -7,13 +7,14 @@ import { Navbar } from '../components/Navbar';
 
 export default function AddFilme(){
     const [movies, setMovies] = useState([]);
-    const [moviename, setMoviename] = useState();
+    const [moviename, setMoviename] = useState('');
     const [showbutton, setShowButton] = useState(false);
     const [userid, setUserId] = useState();
 
     // conexão com a api tmdb para acessar um banco de filmes
     const getMovies = () => {
-        axios({
+        if(moviename != ''){
+            axios({
             method: 'get',
             url: 'https://api.themoviedb.org/3/search/movie',
             params: {
@@ -21,16 +22,19 @@ export default function AddFilme(){
                 api_key: '8781194f9a9c9d9d3f40de28e94a72d1',
                 language: 'pt-BR'
             }
-        }).then (response => {
-            if (response.data.results.length == 0){
-                setShowButton(true);
-                console.log('deu em nada', response.data);
-            }else{
-                setMovies(response.data.results);
-                setShowButton(false);
-                console.log('deu certo', response.data.results);
-            }
-        });
+            }).then (response => {
+                if (response.data.results.length == 0){
+                    setShowButton(true);
+                    console.log('deu em nada', response.data);
+                }else{
+                    setMovies(response.data.results);
+                    setShowButton(false);
+                    console.log('deu certo', response.data.results);
+                }
+            });
+        }else{
+            setShowButton(true)
+        }
     }
 
     // função pra pegar o id assim que abre a página

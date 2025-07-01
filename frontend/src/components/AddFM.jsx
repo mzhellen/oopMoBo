@@ -1,5 +1,6 @@
 import { useState } from "react"
 import api from '../controllers/api';
+import { ToastContainer, toast, Bounce } from 'react-toastify';
 
 
 function AddFM({user_id}) {
@@ -30,8 +31,31 @@ function AddFM({user_id}) {
         await api.post('/poo/collections/create/movie',savemovie)
         .then(function(response){
             console.log('Filme adicionado com sucesso!', response.data);
+            toast.success('Filme adicionado com sucesso!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+            setTelinha(false);
         }).catch(function(error){
             console.log('Filme não foi adicionado!', error);
+            toast.error('Filme não foi adicionado, cancele e tente novamente!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
         });    
     }
         
@@ -65,6 +89,7 @@ function AddFM({user_id}) {
                                         value={saveMovie.title}
                                         onChange={handleChange}
                                         className="border border-gray-300 rounded-md p-2"
+                                        required
                                     />
                                 </div>
 
@@ -195,6 +220,7 @@ function AddFM({user_id}) {
                             </div>
                             </div>
                         )}
+                    <ToastContainer/>
             </div>
     )
 }

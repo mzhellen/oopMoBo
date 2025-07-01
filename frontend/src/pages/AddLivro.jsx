@@ -7,30 +7,35 @@ import { Navbar } from "../components/Navbar";
 
 export default function AddLivro(){
     const [books, setBooks] = useState([]);
-    const [bookname, setBookname] = useState();
+    const [bookname, setBookname] = useState('');
     const [showbutton, setShowButton] = useState(false);
     const [userid, setUserId] = useState();
 
 
     // conexão com a api tmdb para acessar um banco de livro
     const getBooks = () => {
-        axios({
+        if(bookname != ''){
+            axios({
             method: 'get',
             url: 'https://www.googleapis.com/books/v1/volumes',
             params: {
                 q: bookname,
                 langRestric: 'pt'
             }
-        }).then (response => {
-            if (!response.data.items || response.data.items.length === 0){
-                setShowButton(true);
-                console.log('deu em nada', response.data);
-            }else{
-                setBooks(response.data.items); 
-                setShowButton(false);
-                console.log('deu certo', response.data.items);
-            }
-        });
+            }).then (response => {
+                if (!response.data.items || response.data.items.length === 0){
+                    setShowButton(true);
+                    console.log('deu em nada', response.data);
+                }else{
+                    setBooks(response.data.items); 
+                    setShowButton(false);
+                    console.log('deu certo', response.data.items);
+                }
+            });
+        }else{
+            setShowButton(true);
+        }
+        
     }
 
     // função pra pegar o id assim que abre a página
