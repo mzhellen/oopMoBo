@@ -21,10 +21,10 @@ const Registrar = () => {
 
         try {
             const response = await axios.post(`${API_BASE_URL}/auth/register`, {
-                nome: nome,
+                nome: name,
                 email: email,
-                senha: senha,
-                aniv: aniv 
+                senha: password,
+                aniv: birthday 
             });
 
             console.log("Registro bem-sucedido! Resposta:", response.data);
