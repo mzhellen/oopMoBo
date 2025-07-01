@@ -43,7 +43,7 @@ function AddB( {book, user_id}){
                 theme: "dark",
                 transition: Bounce,
             });
-            setTelinha(false);
+            
         }).catch(function(error){
             console.log('Livro não foi adicionado!', error);
             toast.error('Livro não foi adicionado, cancele e tente novamente!', {
